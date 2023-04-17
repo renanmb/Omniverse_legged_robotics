@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+    <xacro:macro name="stochlite_leg_frames">
+
+        <link name="fl_leg_frame">
+        </link>
+
+        <link name="fr_leg_frame">
+        </link>
+
+        <link name="bl_leg_frame">
+        </link>
+
+        <link name="br_leg_frame">
+        </link>
+
+        <joint name="fl_fixed" type="fixed">
+            <parent link="base_link"/>
+            <child link="fl_leg_frame"/>
+            <origin xyz="0.16695 0.0956 -0.0050001" rpy="0 0 0" />
+            <axis xyz="1 0 0" />
+        </joint>
+
+        <joint name="fr_fixed" type="fixed">
+            <parent link="base_link"/>
+            <child link="fr_leg_frame"/>
+            <origin xyz="0.16695 -0.0964 -0.0049999" rpy="0 0 0" />
+            <axis xyz="1 0 0" />
+        </joint>
+
+        <joint name="bl_fixed" type="fixed">
+            <parent link="base_link"/>
+            <child link="bl_leg_frame"/>
+            <origin xyz="-0.16695 0.0956 -0.0049999" rpy="0 0 0" />
+            <axis xyz="1 0 0" />
+        </joint>
+
+        <joint name="br_fixed" type="fixed">
+            <parent link="base_link"/>
+            <child link="br_leg_frame"/>
+            <origin xyz="-0.16695 -0.0964 -0.0050001" rpy="0 0 0" />
+            <axis xyz="1 0 0" />
+        </joint>
+
+    </xacro:macro>
+
+</robot>

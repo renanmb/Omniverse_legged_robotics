@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:property name="base_to_hip_f_x" value="0.06014" />
+    <xacro:property name="base_to_hip_h_x" value="0.05886" />
+    <xacro:property name="base_to_hip_y" value="0.0235" />
+    <xacro:property name="base_to_hip_z" value="0.0171" />
+
+    <xacro:property name="hip_to_upper_leg_distance" value="0.0197" />
+    <xacro:property name="upper_leg_to_lower_leg_distance" value="0.00475" />
+    <xacro:property name="lower_leg_to_foot_distance" value="0.056" />
+
+    <xacro:property name="hip_mass" value="0.250" />
+    <xacro:property name="hip_x_length" value="0.0477" />
+    <xacro:property name="hip_y_length" value="0.0422" />
+    <xacro:property name="hip_z_length" value="0.0415" />
+
+    <xacro:property name="upper_leg_mass" value="0.0625" />
+    <xacro:property name="upper_leg_x_length" value="0.03616" />
+    <xacro:property name="upper_leg_y_length" value="0.01467" />
+    <xacro:property name="upper_leg_z_length" value="0.07649" />
+
+    <xacro:property name="lower_leg_mass" value="0.125" />
+    <xacro:property name="lower_leg_x_length" value="0.0089" />
+    <xacro:property name="lower_leg_y_length" value="0.0015" />
+    <xacro:property name="lower_leg_z_length" value="0.07844" />
+
+    <xacro:property name="base_mesh_path" value="package://mini-pupper_description/meshes/base.stl" />
+    <xacro:property name="base_mass" value="1.0" />
+    <!-- <xacro:property name="base_mass" value="2.0" /> -->
+    <xacro:property name="base_x_length" value="0.196" />
+    <xacro:property name="base_y_length" value="0.07" />
+    <xacro:property name="base_z_length" value="0.07" />
+
+    <xacro:property name="foot_mesh_path" value="package://mini-pupper_description/meshes/foot.stl" />
+    <xacro:property name="foot_mass" value="0.0625" />
+    <xacro:property name="foot_x_length" value="0.017" />
+    <xacro:property name="foot_y_length" value="0.006" />
+    <xacro:property name="foot_z_length" value="0.0207" />
+</robot>

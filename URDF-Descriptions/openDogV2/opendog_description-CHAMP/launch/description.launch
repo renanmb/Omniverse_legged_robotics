@@ -1,0 +1,12 @@
+<launch>
+    <arg name="description_name"           default="robot_description"/>
+    <arg name="description_file"           default="$(find opendog_description)/urdf/opendog.urdf"/>
+
+    <param name="$(arg description_name)" textfile="$(arg description_file)"/>
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+        <param name="use_tf_static"     value="true"/>
+        <param name="publish_frequency" value="200"/>
+        <remap from="robot_description" to="$(arg description_name)"/>
+    </node>
+</launch>

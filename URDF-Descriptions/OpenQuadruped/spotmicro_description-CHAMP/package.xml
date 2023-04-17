@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>spotmicro_description</name>
+  <version>0.1.0</version>
+  <description>CHAMP Description Package</description>
+
+  <maintainer email="jimenojmm@gmail.com">Juan Miguel Jimeno</maintainer>
+  <author>Fran Ferri</author>
+  <author>Juan Miguel Jimeno</author>
+
+  <license>GPLv3</license>
+  
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>roslaunch</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>joint_state_publisher</exec_depend>
+  <exec_depend>urdf</exec_depend>
+  <exec_depend>xacro</exec_depend>
+  <exec_depend>rviz</exec_depend>
+
+</package>

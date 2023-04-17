@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:property name="base_to_front_hip_x" value="0.265" />
+    <xacro:property name="base_to_front_hip_y" value="0.125" />
+    <xacro:property name="base_to_hind_hip_x" value="0.160" />
+    <xacro:property name="base_to_hind_hip_y" value="0.125" />
+
+    <xacro:property name="hip_to_upper_leg_distance" value="0.07" />
+    <xacro:property name="upper_leg_to_lower_leg_distance" value="0.2" />
+    <xacro:property name="lower_leg_to_foot_distance" value="0.23" />
+
+    <xacro:property name="hip_mesh_path" value="package://opendog_description/meshes/hip.stl" />
+    <xacro:property name="hip_mirror_mesh_path" value="package://opendog_description/meshes/hip_mirror.stl" />
+    <xacro:property name="hip_mass" value="0.250" />
+    <xacro:property name="hip_x_length" value="0.112" />
+    <xacro:property name="hip_y_length" value="0.08" />
+    <xacro:property name="hip_z_length" value="0.130" />
+
+    <xacro:property name="upper_leg_mesh_path" value="package://opendog_description/meshes/upper_leg.stl" />
+    <xacro:property name="upper_leg_mass" value="0.125" />
+    <xacro:property name="upper_leg_x_length" value="0.08" />
+    <xacro:property name="upper_leg_y_length" value="0.08" />
+    <xacro:property name="upper_leg_z_length" value="0.30" />
+
+    <xacro:property name="lower_leg_mesh_path" value="package://opendog_description/meshes/lower_leg.stl" />
+    <xacro:property name="lower_leg_mass" value="0.125" />
+    <xacro:property name="lower_leg_x_length" value="0.039" />
+    <xacro:property name="lower_leg_y_length" value="0.022" />
+    <xacro:property name="lower_leg_z_length" value="0.30" />
+
+    <xacro:property name="base_mesh_path" value="package://opendog_description/meshes/base.stl" />
+    <xacro:property name="base_mass" value="2.0" />
+    <xacro:property name="base_x_length" value="0.8" />
+    <xacro:property name="base_y_length" value="0.29" />
+    <xacro:property name="base_z_length" value="0.22" />
+</robot>

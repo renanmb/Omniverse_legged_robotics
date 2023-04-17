@@ -1,0 +1,832 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot name="dream_walker">
+  <material name="red">
+    <color rgba="1.0 0.0 0.0 2.0"/>
+  </material>
+  <material name="gray">
+    <color rgba="0.4 0.4 0.6 2.0"/>
+  </material>
+  <material name="light_gray">
+    <color rgba="0.8 0.8 0.8 2.0"/>
+  </material>
+
+  <link name="dummy">
+    <inertial>
+        <!-- <origin xyz="3.183E-14 1.3076E-14 0.55565" rpy="0 0 0" /> -->
+        <origin xyz="0 0 -0.555" rpy="0 0 0" />
+        <mass value="1.5634" />
+        <inertia ixx="0.007438" ixy="1.5146E-18" ixz="3.0063E-16" iyy="0.019355" iyz="6.1156E-17" izz="0.022991" />
+    </inertial>
+  </link>
+
+  <joint name="dummy_joint" type="fixed">
+     <parent link="base_link"/>
+     <child link="dummy"/>
+  </joint>
+
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 -0.555" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/base_link.STL" />
+      </geometry>
+      <material name="light_gray"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.555" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="A0_Link">
+    <inertial>
+      <origin xyz="0.0425 0 0" rpy="-1.5708 0 -1.5708" />
+      <mass value="1.174" />
+      <inertia ixx="0.00066725" ixy="-4.261E-09" ixz="9.7367E-09" iyy="0.00066813" iyz="-6.9091E-09" izz="0.0012253" />
+    </inertial>
+    <visual>
+      <!-- <origin xyz="0 0 0" rpy="0 0 0" /> -->
+      <origin xyz="0.0425 0 0" rpy="-1.5708 0 -1.5708" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/A0_Link.STL" />
+      </geometry>
+      <material name="gray"/>
+    </visual>
+    <collision>
+      <origin xyz="0.0425 0 0" rpy="-1.5708 0 -1.5708" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/A0_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="A0_joint" type="fixed">
+    <!-- <origin xyz="0.3 -0.083 0.55565" rpy="-1.5708 0 -1.5708" /> -->
+    <!-- <origin xyz="0.3 -0.083 0.55565" rpy="-1.57079632679 0 -1.57079632679" /> -->
+    <origin xyz="0.3485 -0.083 0" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="A0_Link" />
+  </joint>
+
+
+  <link name="A1_Link">
+    <inertial>
+      <origin xyz="-0.0825 0 0" rpy="1.5708 -1.64933612679 0" />
+      <mass value="1.1557" />
+      <inertia ixx="0.00080796" ixy="7.0307E-06" ixz="9.8387E-09" iyy="0.00089568" iyz="-6.5363E-09" izz="0.0013937" />
+    </inertial>
+    <visual>
+      <!-- <origin xyz="0 0 0" rpy="0 0 0" /> -->
+      <origin xyz="-0.0825 0 0" rpy="1.5708 -1.64933612679 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/A1_Link.STL" />
+      </geometry>
+      <material name="gray"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.0825 0 0" rpy="1.5708 -1.64933612679 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/A1_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="A1_joint" type="revolute">
+    <!-- <origin xyz="0 0 0" rpy="-1.5708 0.07854 -1.5708" /> -->
+    <origin xyz="0.11 0 0" rpy="0 0 0" />
+    <parent link="A0_Link" />
+    <child link="A1_Link" />
+    <!-- <axis xyz="0.078459 0.99692 0" /> -->
+    <axis xyz="1 0 0" />
+    <limit lower="-9.42" upper="9.42" effort="1000" velocity="1000" />
+  </joint>
+
+
+  <link name="A2_Link">
+    <inertial>
+      <origin xyz="0 0.17 0" rpy="1.5708 0 0" />
+      <mass value="3.0792" />
+      <inertia ixx="0.0033497" ixy="-3.3234E-08" ixz="-8.4729E-07" iyy="0.0027749" iyz="2.5095E-05" izz="0.0054304" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0.17 0" rpy="1.5708 0 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/A2_Link.STL" />
+      </geometry>
+      <material name="red"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0.17 0" rpy="1.5708 0 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/A2_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="A2_joint" type="revolute">
+    <!-- <origin xyz="-0.0065513 -0.083243 0.0315" rpy="0 0 -2.4347" /> -->
+    <origin xyz="0 -0.203 0" rpy="0 0 0" />
+    <parent link="A1_Link" />
+    <child link="A2_Link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-9.42" upper="9.42" effort="1000" velocity="1000" />
+  </joint>
+
+
+  <link name="A3_Link">
+    <inertial>
+      <origin xyz="0 0.11 0" rpy="1.5708 0 0" />
+      <mass value="1.723" />
+      <inertia ixx="0.0071994" ixy="-1.4133E-11" ixz="1.5336E-09" iyy="0.00075757" iyz="3.5455E-05" izz="0.0075465" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0.11 0" rpy="1.5708 0 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/A3_Link.STL" />
+      </geometry>
+      <material name="gray"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0.11 0" rpy="1.5708 0 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/A3_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="A3_joint" type="revolute">
+    <!-- <origin xyz="0 -0.32 0.135" rpy="0 0 1.5708" /> -->
+    <!-- <origin xyz="0 -0.32 0.135" rpy="0 0 1.57079632679" /> -->
+    <origin xyz="0 -0.075 -0.32" rpy="0 0 0" />
+    <parent link="A2_Link" />
+    <child link="A3_Link" />
+    <!-- <axis xyz="0 0 1" /> -->
+    <axis xyz="0 1 0" />
+    <limit lower="-9.42" upper="9.42" effort="1000" velocity="1000" />
+  </joint>
+
+  <link name="A4_Link"/>
+  <joint name="A4_joint" type="fixed">
+    <origin xyz="0 0 -0.44" rpy="0 0 0" />
+    <parent link="A3_Link" />
+    <child link="A4_Link" />
+  </joint>
+
+  <link name="B0_Link">
+    <inertial>
+      <origin xyz="0.0425 0 0" rpy="-1.5708 0 -1.5708" />
+      <mass value="1.174" />
+      <inertia ixx="0.00066725" ixy="-4.261E-09" ixz="9.7367E-09" iyy="0.00066813" iyz="-6.9091E-09" izz="0.0012253" />
+    </inertial>
+    <visual>
+      <origin xyz="0.0425 0 0" rpy="-1.5708 0 -1.5708" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/B0_Link.STL" />
+      </geometry>
+      <material name="gray"/>
+    </visual>
+    <collision>
+      <origin xyz="0.0425 0 0" rpy="-1.5708 0 -1.5708" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/B0_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="B0_joint" type="fixed">
+    <!-- <origin xyz="0.3 0.083 0.55565" rpy="-1.5708 0 -1.5708" /> -->
+    <origin xyz="0.3485 0.083 0" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="B0_Link" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+
+  <link name="B1_Link">
+    <inertial>
+      <origin xyz="-0.0825 0 0" rpy="-1.5708 1.64933612679 0" />
+      <mass value="1.1557" />
+      <inertia ixx="0.00080796" ixy="7.0307E-06" ixz="9.8389E-09" iyy="0.00089568" iyz="-6.5362E-09" izz="0.0013937" />
+    </inertial>
+    <visual>
+      <origin xyz="-0.0825 0 0" rpy="-1.5708 1.64933612679 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/B1_Link.STL" />
+      </geometry>
+      <material name="gray"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.0825 0 0" rpy="-1.5708 1.64933612679 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/B1_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="B1_joint" type="revolute">
+    <!-- <origin xyz="0 0 0" rpy="-1.5708 0.07854 1.5708" /> -->
+    <origin xyz="0.11 0 0" rpy="0 0 0" />
+    <parent link="B0_Link" />
+    <child link="B1_Link" />
+    <!-- <axis xyz="0.078459 0.99692 0" /> -->
+    <axis xyz="1 0 0" />
+    <limit lower="-9.42" upper="9.42" effort="1000" velocity="1000" />
+  </joint>
+
+
+  <link name="B2_Link">
+    <inertial>
+      <origin xyz="0 -0.17 0" rpy="-1.5708 3.1416 0" />
+      <mass value="3.0792" />
+      <inertia ixx="0.0033497" ixy="-3.3234E-08" ixz="-8.4729E-07" iyy="0.0027749" iyz="2.5095E-05" izz="0.0054304" />
+    </inertial>
+    <visual>
+      <origin xyz="0 -0.17 0" rpy="-1.5708 3.1416 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/B2_Link.STL" />
+      </geometry>
+      <material name="red"/>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.17 0" rpy="-1.5708 3.1416 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/B2_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="B2_joint" type="revolute">
+    <origin xyz="0 0.203 0" rpy="0 0 0" />
+    <parent link="B1_Link" />
+    <child link="B2_Link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-9.42" upper="9.42" effort="1000" velocity="1000" />
+  </joint>
+
+
+  <link name="B3_Link">
+    <inertial>
+      <origin xyz="0 -0.11 0" rpy="-1.5708 3.1416 0" />
+      <mass value="1.723" />
+      <inertia ixx="0.0071994" ixy="-1.4133E-11" ixz="1.5336E-09" iyy="0.00075757" iyz="3.5455E-05" izz="0.0075465" />
+    </inertial>
+    <visual>
+      <origin xyz="0 -0.11 0" rpy="-1.5708 3.1416 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/B3_Link.STL" />
+      </geometry>
+      <material name="gray"/>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.11 0" rpy="-1.5708 3.1416 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/B3_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="B3_joint" type="revolute">
+    <!-- <origin xyz="0 -0.32 0.135" rpy="0 0 -1.5708" /> -->
+    <origin xyz="0 0.075 -0.32" rpy="0 0 0" />
+    <parent link="B2_Link" />
+    <child link="B3_Link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-9.42" upper="9.42" effort="1000" velocity="1000" />
+  </joint>
+
+  <link name="B4_Link"/>
+  <joint name="B4_joint" type="fixed">
+    <origin xyz="0 0 -0.44" rpy="0 0 0" />
+    <parent link="B3_Link" />
+    <child link="B4_Link" />
+  </joint>
+
+  <link name="C0_Link">
+    <inertial>
+      <origin xyz="-0.0425 0 0" rpy="-1.5708 0 1.5708" />
+      <mass value="1.174" />
+      <inertia ixx="0.00066725" ixy="-4.2609E-09" ixz="9.7367E-09" iyy="0.00066813" iyz="-6.9091E-09" izz="0.0012253" />
+    </inertial>
+    <visual>
+      <origin xyz="-0.0425 0 0" rpy="-1.5708 0 1.5708" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/C0_Link.STL" />
+      </geometry>
+      <material name="gray"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.0425 0 0" rpy="-1.5708 0 1.5708" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/C0_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="C0_joint" type="fixed">
+    <!-- <origin xyz="-0.3 -0.083 0.55565" rpy="1.5708 0 -1.5708" /> -->
+    <origin xyz="-0.3485 -0.083 0" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="C0_Link" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+
+  <link name="C1_Link">
+    <inertial>
+      <origin xyz="0.0825 0 0" rpy="1.5708 1.4837044 0" />
+      <mass value="1.1557" />
+      <inertia ixx="0.00080796" ixy="7.0307E-06" ixz="9.8389E-09" iyy="0.00089568" iyz="-6.5363E-09" izz="0.0013937" />
+    </inertial>
+    <visual>
+      <origin xyz="0.0825 0 0" rpy="1.5708 1.4837044 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/C1_Link.STL" />
+      </geometry>
+      <material name="gray"/>
+    </visual>
+    <collision>
+      <origin xyz="0.0825 0 0" rpy="1.5708 1.4837044 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/C1_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="C1_joint" type="revolute">
+    <!-- <origin xyz="0 0 0" rpy="-1.5708 0.07854 -1.5708" /> -->
+    <origin xyz="-0.11 0 0" rpy="0 0 0" />
+    <parent link="C0_Link" />
+    <child link="C1_Link" />
+    <!-- <axis xyz="0.078459 0.99692 0" /> -->
+    <axis xyz="1 0 0" />
+    <limit lower="-9.42" upper="9.42" effort="1000" velocity="1000" />
+  </joint>
+
+
+  <link name="C2_Link">
+    <inertial>
+      <origin xyz="0 0.17 0" rpy="1.5708 0 0" />
+      <mass value="3.0792" />
+      <inertia ixx="0.0033497" ixy="-3.3234E-08" ixz="-8.4729E-07" iyy="0.0027749" iyz="2.5095E-05" izz="0.0054304" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0.17 0" rpy="1.5708 0 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/C2_Link.STL" />
+      </geometry>
+      <material name="red"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0.17 0" rpy="1.5708 0 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/C2_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="C2_joint" type="revolute">
+    <origin xyz="0 -0.203 0" rpy="0 0 0" />
+    <parent link="C1_Link" />
+    <child link="C2_Link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-9.42" upper="9.42" effort="1000" velocity="1000" />
+  </joint>
+
+
+  <link name="C3_Link">
+    <inertial>
+      <origin xyz="0 0.11 0" rpy="1.5708 0 0" />
+      <mass value="1.723" />
+      <inertia ixx="0.0071994" ixy="-1.4133E-11" ixz="1.5336E-09" iyy="0.00075757" iyz="3.5455E-05" izz="0.0075465" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0.11 0" rpy="1.5708 0 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/C3_Link.STL" />
+      </geometry>
+      <material name="gray"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0.11 0" rpy="1.5708 0 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/C3_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="C3_joint" type="revolute">
+    <!-- <origin xyz="0 -0.32 0.135" rpy="0 0 1.5708" /> -->
+    <origin xyz="0 -0.075 -0.32" rpy="0 0 0" />
+    <parent link="C2_Link" />
+    <child link="C3_Link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-9.42" upper="9.42" effort="1000" velocity="1000" />
+  </joint>
+
+  <link name="C4_Link"/>
+  <joint name="C4_joint" type="fixed">
+    <origin xyz="0 0 -0.44" rpy="0 0 0" />
+    <parent link="C3_Link" />
+    <child link="C4_Link" />
+  </joint>
+
+  <link name="D0_Link">
+    <inertial>
+      <origin xyz="-0.0425 0 0" rpy="-1.5708 0 1.5708" />
+      <mass value="1.174" />
+      <inertia ixx="0.00066725" ixy="-4.261E-09" ixz="9.7367E-09" iyy="0.00066813" iyz="-6.9091E-09" izz="0.0012253" />
+    </inertial>
+    <visual>
+      <origin xyz="-0.0425 0 0" rpy="-1.5708 0 1.5708" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/D0_Link.STL" />
+      </geometry>
+      <material name="gray"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.0425 0 0" rpy="-1.5708 0 1.5708" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/D0_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="D0_joint" type="fixed">
+    <!-- <origin xyz="-0.3 0.083 0.55565" rpy="1.5708 0 -1.5708" /> -->
+    <origin xyz="-0.3485 0.083 0" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="D0_Link" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+
+  <link name="D1_Link">
+    <inertial>
+      <origin xyz="0.0825 0 0" rpy="-1.5708 -1.483704 0" />
+      <mass value="1.1557" />
+      <inertia ixx="0.00080796" ixy="7.0307E-06" ixz="9.8387E-09" iyy="0.00089568" iyz="-6.5363E-09" izz="0.0013937" />
+    </inertial>
+    <visual>
+      <origin xyz="0.0825 0 0" rpy="-1.5708 -1.483704 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/D1_Link.STL" />
+      </geometry>
+      <material name="gray"/>
+    </visual>
+    <collision>
+      <origin xyz="-0.0825 0 0" rpy="-1.5708 1.483704 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/D1_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="D1_joint" type="revolute">
+    <!-- <origin xyz="0 0 0" rpy="-1.5708 0.07854 1.5708" /> -->
+    <origin xyz="-0.11 0 0" rpy="0 0 0" />
+    <parent link="D0_Link" />
+    <child link="D1_Link" />
+    <!-- <axis xyz="0.078459 0.99692 0" /> -->
+    <axis xyz="1 0 0" />
+    <limit lower="-9.42" upper="9.42" effort="1000" velocity="1000" />
+  </joint>
+
+
+  <link name="D2_Link">
+    <inertial>
+      <origin xyz="0 -0.17 0" rpy="-1.5708 3.1416 0" />
+      <mass value="3.0792" />
+      <inertia ixx="0.0033497" ixy="-3.3234E-08" ixz="-8.4729E-07" iyy="0.0027749" iyz="2.5095E-05" izz="0.0054304" />
+    </inertial>
+    <visual>
+      <origin xyz="0 -0.17 0" rpy="-1.5708 3.1416 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/D2_Link.STL" />
+      </geometry>
+      <material name="red"/>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.17 0" rpy="-1.5708 3.1416 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/D2_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="D2_joint" type="revolute">
+    <origin xyz="0 0.203 0" rpy="0 0 0" />
+    <parent link="D1_Link" />
+    <child link="D2_Link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-9.42" upper="9.42" effort="1000" velocity="1000" />
+  </joint>
+
+
+  <link name="D3_Link">
+    <inertial>
+      <origin xyz="0 -0.11 0" rpy="-1.5708 3.1416 0" />
+      <mass value="1.723" />
+      <inertia ixx="0.0071994" ixy="-1.4133E-11" ixz="1.5338E-09" iyy="0.00075757" iyz="3.5455E-05" izz="0.0075465" />
+    </inertial>
+    <visual>
+      <origin xyz="0 -0.11 0" rpy="-1.5708 3.1416 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/D3_Link.STL" />
+      </geometry>
+      <material name="gray"/>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.11 0" rpy="-1.5708 3.1416 0" />
+      <geometry>
+        <mesh filename="package://dream_walker/meshes/D3_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint name="D3_joint" type="revolute">
+    <!-- <origin xyz="0 -0.32 0.135" rpy="0 0 -1.5708" /> -->
+    <origin xyz="0 0.075 -0.32" rpy="0 0 0" />
+    <parent link="D2_Link" />
+    <child link="D3_Link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-9.42" upper="9.42" effort="1000" velocity="1000" />
+  </joint>
+
+  <link name="D4_Link"/>
+  <joint name="D4_joint" type="fixed">
+    <origin xyz="0 0 -0.44" rpy="0 0 0" />
+    <parent link="D3_Link" />
+    <child link="D4_Link" />
+  </joint>
+
+
+  <gazebo reference="base_link">
+    <material>Gazebo/Gray</material>
+  </gazebo>
+  <gazebo reference="A0_Link">
+    <material>Gazebo/Gray</material>
+  </gazebo>
+  <gazebo reference="A1_Link">
+    <material>Gazebo/FratBlack</material>
+  </gazebo>
+  <gazebo reference="A2_Link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <gazebo reference="A3_Link">
+
+    <material>Gazebo/Gray</material>
+  </gazebo>
+  <gazebo reference="A4_Link">
+    <material>Gazebo/DarkGray</material>
+  </gazebo> 
+  <gazebo reference="B0_Link">
+    <material>Gazebo/Gray</material>
+  </gazebo>
+  <gazebo reference="B1_Link">
+    <material>Gazebo/FratBlack</material>
+  </gazebo>
+  <gazebo reference="B2_Link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <gazebo reference="B3_Link">
+    <material>Gazebo/Gray</material>
+  </gazebo>
+  <gazebo reference="B4_Link">
+    <material>Gazebo/DarkGray</material>
+  </gazebo> 
+  <gazebo reference="C0_Link">
+    <material>Gazebo/Gray</material>
+  </gazebo>
+  <gazebo reference="C1_Link">
+    <material>Gazebo/FratBlack</material>
+  </gazebo>
+  <gazebo reference="C2_Link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <gazebo reference="C3_Link">
+    <material>Gazebo/Gray</material>
+  </gazebo>
+  <gazebo reference="C4_Link">
+    <material>Gazebo/DarkGray</material>
+  </gazebo> 
+  <gazebo reference="D0_Link">
+    <material>Gazebo/Gray</material>
+  </gazebo>
+  <gazebo reference="D1_Link">
+    <material>Gazebo/FratBlack</material>
+  </gazebo>
+  <gazebo reference="D2_Link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <gazebo reference="D3_Link">
+    <material>Gazebo/Gray</material>
+  </gazebo>
+  <gazebo reference="D4_Link">
+    <material>Gazebo/DarkGray</material>
+  </gazebo> 
+
+  <gazebo reference="A4_Link">
+    <kp>1000000.0</kp>
+    <kd>1.0</kd>
+    <mu1>0.8</mu1>
+    <mu2>0.8</mu2>
+    <maxVel>0.0</maxVel>
+    <minDepth>0.001</minDepth>
+    <material>Gazebo/FlatBlack</material>
+  </gazebo>
+  <gazebo reference="B4_Link">
+    <kp>1000000.0</kp>
+    <kd>1.0</kd>
+    <mu1>0.8</mu1>
+    <mu2>0.8</mu2>
+    <maxVel>0.0</maxVel>
+    <minDepth>0.001</minDepth>
+    <material>Gazebo/FlatBlack</material>
+  </gazebo>
+  <gazebo reference="C4_Link">
+    <kp>1000000.0</kp>
+    <kd>1.0</kd>
+    <mu1>0.8</mu1>
+    <mu2>0.8</mu2>
+    <maxVel>0.0</maxVel>
+    <minDepth>0.001</minDepth>
+    <material>Gazebo/FlatBlack</material>
+  </gazebo>
+  <gazebo reference="D4_Link">
+    <kp>1000000.0</kp>
+    <kd>1.0</kd>
+    <mu1>0.8</mu1>
+    <mu2>0.8</mu2>
+    <maxVel>0.0</maxVel>
+    <minDepth>0.001</minDepth>
+    <material>Gazebo/FlatBlack</material>
+  </gazebo>
+
+  <transmission name="A1_joint_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="A1_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="A1_joint_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="A2_joint_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="A2_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="A2_joint_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="A3_joint_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="A3_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="A3_joint_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="B1_joint_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="B1_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="B1_joint_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="B2_joint_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="B2_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="B2_joint_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="B3_joint_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="B3_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="B3_joint_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="C1_joint_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="C1_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="C1_joint_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="C2_joint_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="C2_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="C2_joint_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="C3_joint_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="C3_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="C3_joint_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="D1_joint_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="D1_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="D1_joint_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="D2_joint_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="D2_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="D2_joint_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <transmission name="D3_joint_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="D3_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="D3_joint_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+
+  <gazebo>
+    <plugin filename="libgazebo_ros_p3d.so" name="p3d_base_controller">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>25.0</updateRate>
+      <bodyName>base_link</bodyName>
+      <topicName>odom/ground_truth</topicName>
+      <gaussianNoise>0.01</gaussianNoise>
+      <frameName>world</frameName>
+      <xyzOffsets>0 0 0</xyzOffsets>
+      <rpyOffsets>0 0 0</rpyOffsets>
+    </plugin>
+  </gazebo>
+  <gazebo>
+    <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
+      <robotNamespace>/champ</robotNamespace>
+      <legacyModeNS>true</legacyModeNS>
+    </plugin>
+  </gazebo>
+
+
+</robot>

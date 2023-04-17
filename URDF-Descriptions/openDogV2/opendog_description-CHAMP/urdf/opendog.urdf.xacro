@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<robot name="opendog" xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:include filename="$(find opendog_description)/urdf/properties.urdf.xacro" />
+
+    <material name="black"><color rgba="0.15 0.15 0.15 1.0" /></material>
+    <material name="white"><color rgba="0.85 0.85 0.85 1" /></material>
+    <material name="yellow"><color rgba="0.96 0.89 0.10 1" /></material>
+    
+    <link name="base_link">
+        <collision>
+            <origin xyz="0.25 0.185 0.002" rpy="0 0 1.5708" />
+            <geometry>
+                <mesh filename="${base_mesh_path}" scale="0.001 0.001 0.001" />
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0.25 0.185 0.002" rpy="0 0 1.5708" />
+            <geometry>
+                <mesh filename="${base_mesh_path}" scale="0.001 0.001 0.001" />
+            </geometry>
+            <material name="black" />
+        </visual>
+    </link>
+    <link name="base_inertia">    
+        <inertial>
+            <origin xyz="-0.1 0 0" />
+            <mass value="${base_mass}" />
+            <inertia ixx="${(1/12) * base_mass * (base_y_length * base_y_length + base_z_length * base_z_length)}" ixy="0.0" ixz="0.0"
+                     iyy="${(1/12) * base_mass * (base_x_length * base_x_length + base_z_length * base_z_length)}" iyz="0.0"
+                     izz="${(1/12) * base_mass * (base_x_length * base_x_length + base_y_length * base_y_length)}" />
+        </inertial>
+    </link>  
+    <joint name="base_link_to_base_inertia" type="fixed">    
+        <parent link="base_link"/>    
+        <child link="base_inertia"/>    
+        <origin rpy="0 0 0" xyz="0.05 0 0"/>  
+    </joint>  
+
+    <gazebo reference="base_link">
+        <material>Gazebo/FlatBlack</material>
+    </gazebo>
+
+    <xacro:include filename="$(find opendog_description)/urdf/leg.urdf.xacro" />
+
+    <xacro:include filename="$(find opendog_description)/urdf/accessories.urdf.xacro" />
+
+    <xacro:opendog_leg leg="lf"/>
+    <xacro:opendog_leg leg="lh"/>
+    <xacro:opendog_leg leg="rf"/>
+    <xacro:opendog_leg leg="rh"/>
+
+    <gazebo>
+      <plugin name="p3d_base_controller" filename="libgazebo_ros_p3d.so">
+            <alwaysOn>true</alwaysOn>
+            <updateRate>10.0</updateRate>
+            <bodyName>base_link</bodyName>
+            <topicName>odom/ground_truth</topicName>
+            <gaussianNoise>0.01</gaussianNoise>
+            <frameName>world</frameName>
+            <xyzOffsets>0 0 0</xyzOffsets>
+            <rpyOffsets>0 0 0</rpyOffsets>
+        </plugin>
+    </gazebo>
+
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <legacyModeNS>true</legacyModeNS>
+        </plugin>
+    </gazebo>
+</robot>

@@ -1,0 +1,706 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Motor Limits b3m in N-m and rad/s -->
+    <xacro:property name="torque" value="4.1" />
+    <xacro:property name="velocity" value="4.6" />
+    <xacro:property name="abd_lim" value="10.22" />
+    <xacro:property name="hip_lim" value="10.22" />
+    <xacro:property name="knee_lim" value="10.22" />
+
+    <xacro:macro name="stochlite_description" params="fixed">
+
+        <!-- For KDL -->
+        <xacro:if value="${fixed}">
+            <link name="world">
+            </link>
+            
+            <joint name="fixed" type="fixed">
+                <parent link="world"/>
+                <child link="base_link"/>
+            </joint>
+        </xacro:if>
+        <xacro:unless value="${fixed}">
+            <link name="dummy">
+            </link>
+            
+            <joint name="dummy_joint" type="fixed">
+                <parent link="dummy"/>
+                <child link="base_link"/>
+            </joint>
+        </xacro:unless>
+
+        <link name="base_link">
+            <inertial>
+                <origin xyz="0.00011698 0.00043344 -0.0081282" rpy="0 0 0" />
+                <mass value="1.582" />
+                <inertia
+                    ixx="0.00575867"
+                    ixy="7.19E-06"
+                    ixz="3.71E-06"
+                    iyy="0.02534052"
+                    iyz="1.38E-06"
+                    izz="0.03025755" />
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://stochlite_description/meshes/base_link.STL" />
+                </geometry>
+                <material name="">
+                    <color rgba="0.75294 0.75294 0.75294 1" />
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://stochlite_description/meshes/base_link.STL" />
+                </geometry>
+            </collision>
+        </link>
+
+        <link name="fl_abd_link">
+            <inertial>
+                <origin xyz="0.0029662 0.011479 4.5103E-17" rpy="0 0 0" />
+                <mass value="0.037" />
+                <inertia
+                ixx="0.00043261"
+                ixy="0.00067195"
+                ixz="-3.148E-05"
+                iyy="0.00109285"
+                iyz="-1.979E-05"
+                izz="0.00151879" />
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://stochlite_description/meshes/fl_abd_link.STL" />
+                </geometry>
+                <material name="">
+                    <color rgba="0.75294 0.75294 0.75294 1" />
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://stochlite_description/meshes/fl_abd_link.STL" />
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="fl_abd_joint" type="revolute">
+            <origin xyz="0.16695 0.0956 -0.0050001" rpy="0 0 0" />
+            <parent link="base_link" />
+            <child link="fl_abd_link" />
+            <axis xyz="1 0 0" />
+            <limit
+                lower="${-1.0 * abd_lim}"
+                upper="${abd_lim}"
+                effort="${torque}"
+                velocity="${velocity}" />
+        </joint>
+
+        <link name="fl_thigh_link">
+            <inertial>
+                <origin xyz="-1.9979E-05 -0.0017695 -0.073" rpy="0 0 0" />
+                <mass value="0.32" />
+                <inertia
+                    ixx="0.00983483"
+                    ixy="0.00779081"
+                    ixz="-0.0041665"
+                    iyy="0.01193972"
+                    iyz="-0.00364492"
+                    izz="0.01581035" />
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://stochlite_description/meshes/fl_thigh_link.STL" />
+                </geometry>
+                <material name="">
+                    <color rgba="0.75294 0.75294 0.75294 1" />
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://stochlite_description/meshes/fl_thigh_link.STL" />
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="fl_hip_joint" type="revolute">
+            <origin xyz="0 0.052019 0" rpy="0 0 0" />
+            <parent link="fl_abd_link" />
+            <child link="fl_thigh_link" />
+            <axis xyz="0 1 0" />
+            <limit
+                lower="${-1.0 * hip_lim}"
+                upper="${hip_lim}"
+                effort="${torque}"
+                velocity="${velocity}" />
+        </joint>
+
+        <link name="fl_shank_link">
+            <inertial>
+                <origin
+                    xyz="4.6786E-08 0.014581 -0.08739"
+                    rpy="0 0 0" />
+                <mass
+                    value="0.055" />
+                <inertia
+                    ixx="0.00511956"
+                    ixy="0.00170322"
+                    ixz="-0.0021654"
+                    iyy="0.00476045"
+                    iyz="-0.00242252"
+                    izz="0.00343153" />
+            </inertial>
+            <visual>
+                <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0" />
+                <geometry>
+                    <mesh
+                    filename="package://stochlite_description/meshes/fl_shank_link.STL" />
+                </geometry>
+                <material
+                    name="">
+                    <color
+                    rgba="0.75294 0.75294 0.75294 1" />
+                </material>
+            </visual>
+            <collision>
+                <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0" />
+                <geometry>
+                    <mesh
+                    filename="package://stochlite_description/meshes/fl_shank_link.STL" />
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="fl_knee_joint" type="revolute">
+            <origin xyz="0 0.023481 -0.146" rpy="0 0 0" />
+            <parent link="fl_thigh_link" />
+            <child link="fl_shank_link" />
+            <axis xyz="0 1 0" />
+            <limit
+                lower="${-1.0 * knee_lim}"
+                upper="${knee_lim}"
+                effort="${torque}"
+                velocity="${velocity}" />
+        </joint>
+
+        <link name="fl_toe_link">
+        </link>
+        
+        <joint name="fl_toe_joint" type="fixed">
+            <origin xyz="0 0.023481 -0.169" rpy="0 0 0" />
+            <axis xyz="0 1 0" />
+            <parent link="fl_shank_link"/>
+            <child link="fl_toe_link"/>
+        </joint>
+
+        <link name="fr_abd_link">
+            <inertial>
+                <origin
+                    xyz="0.0029662 -0.011479 0"
+                    rpy="0 0 0" />
+                <mass
+                    value="0.037" />
+                <inertia
+                    ixx="0.00043896"
+                    ixy="-0.00067699"
+                    ixz="-3.147E-05"
+                    iyy="0.0010929"
+                    iyz="1.993E-05"
+                    izz="0.0015252" />
+            </inertial>
+            <visual>
+                <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0" />
+                <geometry>
+                    <mesh
+                    filename="package://stochlite_description/meshes/fr_abd_link.STL" />
+                </geometry>
+                <material
+                    name="">
+                    <color
+                    rgba="0.75294 0.75294 0.75294 1" />
+                </material>
+            </visual>
+            <collision>
+                <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0" />
+                <geometry>
+                    <mesh
+                    filename="package://stochlite_description/meshes/fr_abd_link.STL" />
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="fr_abd_joint" type="revolute">
+            <origin xyz="0.16695 -0.0964 -0.0049999" rpy="0 0 0" />
+            <parent link="base_link" />
+            <child link="fr_abd_link" />
+            <axis xyz="1 0 0" />
+            <limit
+                lower="${-1.0 * abd_lim}"
+                upper="${abd_lim}"
+                effort="${torque}"
+                velocity="${velocity}" />
+        </joint>
+
+        <link name="fr_thigh_link">
+            <inertial>
+                <origin
+                    xyz="1.9979E-05 0.0017695 -0.073"
+                    rpy="0 0 0" />
+                <mass
+                    value="0.32" />
+                <inertia
+                    ixx="0.0099097"
+                    ixy="-0.00783571"
+                    ixz="-0.00416764"
+                    iyy="0.01194464"
+                    iyz="0.00366487"
+                    izz="0.01589016" />
+            </inertial>
+            <visual>
+                <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0" />
+                <geometry>
+                    <mesh
+                    filename="package://stochlite_description/meshes/fr_thigh_link.STL" />
+                </geometry>
+                <material
+                    name="">
+                    <color
+                    rgba="0.75294 0.75294 0.75294 1" />
+                </material>
+            </visual>
+            <collision>
+                <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0" />
+                <geometry>
+                    <mesh
+                    filename="package://stochlite_description/meshes/fr_thigh_link.STL" />
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="fr_hip_joint" type="revolute">
+            <origin xyz="0 -0.052019 0" rpy="0 0 0" />
+            <parent link="fr_abd_link" />
+            <child link="fr_thigh_link" />
+            <axis xyz="0 1 0" />
+            <limit
+                lower="${-1.0 * hip_lim}"
+                upper="${hip_lim}"
+                effort="${torque}"
+                velocity="${velocity}" />
+        </joint>
+
+        <link name="fr_shank_link">
+            <inertial>
+                <origin
+                    xyz="-4.6856E-08 -0.014581 -0.08739"
+                    rpy="0 0 0" />
+                <mass
+                    value="0.055" />
+                <inertia
+                    ixx="0.00513592"
+                    ixy="-0.00171056"
+                    ixz="-0.0021654"
+                    iyy="0.00476044"
+                    iyz="0.0024329"
+                    izz="0.00344789" />
+            </inertial>
+            <visual>
+                <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0" />
+                <geometry>
+                    <mesh
+                    filename="package://stochlite_description/meshes/fr_shank_link.STL" />
+                </geometry>
+                <material
+                    name="">
+                    <color
+                    rgba="0.75294 0.75294 0.75294 1" />
+                </material>
+            </visual>
+            <collision>
+                <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0" />
+                <geometry>
+                    <mesh
+                    filename="package://stochlite_description/meshes/fr_shank_link.STL" />
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="fr_knee_joint" type="revolute">
+            <origin xyz="0 -0.023481 -0.146" rpy="0 0 0" />
+            <parent link="fr_thigh_link" />
+            <child link="fr_shank_link" />
+            <axis xyz="0 1 0" />
+            <limit
+                lower="${-1 * knee_lim}"
+                upper="${knee_lim}"
+                effort="${torque}"
+                velocity="${velocity}" />
+        </joint>
+
+        <link name="fr_toe_link">
+        </link>
+        
+        <joint name="fr_toe_joint" type="fixed">
+            <origin xyz="0 -0.023481 -0.169" rpy="0 0 0" />
+            <axis xyz="0 1 0" />
+            <parent link="fr_shank_link"/>
+            <child link="fr_toe_link"/>
+        </joint>
+
+        <link name="bl_abd_link">
+            <inertial>
+                <origin
+                    xyz="-0.0029662 0.011479 -4.6838E-17"
+                    rpy="0 0 0" />
+                <mass
+                    value="0.037" />
+                <inertia
+                    ixx="0.00043261"
+                    ixy="-0.00067195"
+                    ixz="3.147E-05"
+                    iyy="0.0010929"
+                    iyz="-1.979E-05"
+                    izz="0.0051879" />
+            </inertial>
+            <visual>
+                <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0" />
+                <geometry>
+                    <mesh
+                    filename="package://stochlite_description/meshes/bl_abd_link.STL" />
+                </geometry>
+                <material
+                    name="">
+                    <color
+                    rgba="0.75294 0.75294 0.75294 1" />
+                </material>
+            </visual>
+            <collision>
+                <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0" />
+                <geometry>
+                    <mesh
+                    filename="package://stochlite_description/meshes/bl_abd_link.STL" />
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="bl_abd_joint" type="revolute">
+            <origin xyz="-0.16695 0.0956 -0.0049999" rpy="0 0 0" />
+            <parent link="base_link" />
+            <child link="bl_abd_link" />
+            <axis xyz="1 0 0" />
+            <limit
+                lower="${-1.0 * abd_lim}"
+                upper="${abd_lim}"
+                effort="${torque}"
+                velocity="${velocity}" />
+        </joint>
+
+        <link name="bl_thigh_link">
+            <inertial>
+                <origin
+                    xyz="-1.998E-05 -0.0017695 -0.073"
+                    rpy="0 0 0" />
+                <mass
+                    value="0.32" />
+                <inertia
+                    ixx="0.0098348"
+                    ixy="-0.007793"
+                    ixz="0.0041676"
+                    iyy="0.011945"
+                    iyz="-0.0036449"
+                    izz="0.015815" />
+            </inertial>
+            <visual>
+                <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0" />
+                <geometry>
+                    <mesh
+                    filename="package://stochlite_description/meshes/bl_thigh_link.STL" />
+                </geometry>
+                <material
+                    name="">
+                    <color
+                    rgba="0.75294 0.75294 0.75294 1" />
+                </material>
+            </visual>
+            <collision>
+                <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0" />
+                <geometry>
+                    <mesh
+                    filename="package://stochlite_description/meshes/bl_thigh_link.STL" />
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="bl_hip_joint" type="revolute">
+            <origin xyz="0 0.052019 0" rpy="0 0 0" />
+            <parent link="bl_abd_link" />
+            <child link="bl_thigh_link" />
+            <axis xyz="0 1 0" />
+            <limit
+                lower="${-1.0 * hip_lim}"
+                upper="${hip_lim}"
+                effort="${torque}"
+                velocity="${velocity}" />
+        </joint>
+
+        <link name="bl_shank_link">
+            <inertial>
+                <origin
+                    xyz="4.678E-08 0.014581 -0.08739"
+                    rpy="0 0 0" />
+                <mass
+                    value="0.055" />
+                <inertia
+                    ixx="0.0051196"
+                    ixy="-0.0017032"
+                    ixz="0.0021654"
+                    iyy="0.0047604"
+                    iyz="-0.0024225"
+                    izz="0.0034315" />
+                </inertial>
+            <visual>
+                <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0" />
+                <geometry>
+                    <mesh
+                    filename="package://stochlite_description/meshes/bl_shank_link.STL" />
+                </geometry>
+                <material
+                    name="">
+                    <color
+                    rgba="0.75294 0.75294 0.75294 1" />
+                </material>
+            </visual>
+            <collision>
+                <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0" />
+                <geometry>
+                    <mesh
+                    filename="package://stochlite_description/meshes/bl_shank_link.STL" />
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="bl_knee_joint" type="revolute">
+            <origin xyz="0 0.023481 -0.146" rpy="0 0 0" />
+            <parent link="bl_thigh_link" />
+            <child link="bl_shank_link" />
+            <axis xyz="0 1 0" />
+            <limit
+                lower="${-1.0 * knee_lim}"
+                upper="${knee_lim}"
+                effort="${torque}"
+                velocity="${velocity}" />
+        </joint>
+
+        <link name="bl_toe_link">
+        </link>
+        
+        <joint name="bl_toe_joint" type="fixed">
+            <origin xyz="0 0.023481 -0.169" rpy="0 0 0" />
+            <axis xyz="0 1 0" />
+            <parent link="bl_shank_link"/>
+            <child link="bl_toe_link"/>
+        </joint>
+
+        <link name="br_abd_link">
+            <inertial>
+                <origin
+                    xyz="-0.0029662 -0.011479 6.4185E-17"
+                    rpy="0 0 0" />
+                <mass
+                    value="0.037" />
+                <inertia
+                    ixx="0.00043896"
+                    ixy="0.00067699"
+                    ixz="3.148E-05"
+                    iyy="0.0010929"
+                    iyz="1.994E-05"
+                    izz="0.0015252" />
+            </inertial>
+            <visual>
+                <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0" />
+                <geometry>
+                    <mesh
+                    filename="package://stochlite_description/meshes/br_abd_link.STL" />
+                </geometry>
+                <material
+                    name="">
+                    <color
+                    rgba="0.75294 0.75294 0.75294 1" />
+                </material>
+            </visual>
+            <collision>
+                <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0" />
+                <geometry>
+                    <mesh
+                    filename="package://stochlite_description/meshes/br_abd_link.STL" />
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="br_abd_joint" type="revolute">
+            <origin xyz="-0.16695 -0.0964 -0.0050001" rpy="0 0 0" />
+            <parent link="base_link" />
+            <child link="br_abd_link" />
+            <axis xyz="1 0 0" />
+            <limit
+                lower="${-1.0 * abd_lim}"
+                upper="${abd_lim}"
+                effort="${torque}"
+                velocity="${velocity}" />
+        </joint>
+
+        <link name="br_thigh_link">
+            <inertial>
+                <origin
+                    xyz="1.998E-05 0.0017695 -0.073"
+                    rpy="0 0 0" />
+                <mass
+                    value="0.32" />
+                <inertia
+                    ixx="0.0099097"
+                    ixy="0.0078336"
+                    ixz="0.0041665"
+                    iyy="0.01194"
+                    iyz="0.0036649"
+                    izz="0.015885" />
+            </inertial>
+            <visual>
+                <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0" />
+                <geometry>
+                    <mesh
+                    filename="package://stochlite_description/meshes/br_thigh_link.STL" />
+                </geometry>
+                <material
+                    name="">
+                    <color
+                    rgba="0.75294 0.75294 0.75294 1" />
+                </material>
+            </visual>
+            <collision>
+                <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0" />
+                <geometry>
+                    <mesh
+                    filename="package://stochlite_description/meshes/br_thigh_link.STL" />
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="br_hip_joint" type="revolute">
+            <origin xyz="0 -0.052019 0" rpy="0 0 0" />
+            <parent link="br_abd_link" />
+            <child link="br_thigh_link" />
+            <axis xyz="0 1 0" />
+            <limit
+                lower="${-1.0 * hip_lim}"
+                upper="${hip_lim}"
+                effort="${torque}"
+                velocity="${velocity}" />
+        </joint>
+
+        <link name="br_shank_link">
+            <inertial>
+                <origin
+                    xyz="-4.6786E-08 -0.014581 -0.08739"
+                    rpy="0 0 0" />
+                <mass
+                    value="0.055" />
+                <inertia
+                    ixx="0.00513592"
+                    ixy="0.00171056"
+                    ixz="0.0021654"
+                    iyy="0.00476045"
+                    iyz="0.0024329"
+                    izz="0.00344789" />
+            </inertial>
+            <visual>
+                <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0" />
+                <geometry>
+                    <mesh
+                    filename="package://stochlite_description/meshes/br_shank_link.STL" />
+                </geometry>
+                <material
+                    name="">
+                    <color
+                    rgba="0.75294 0.75294 0.75294 1" />
+                </material>
+            </visual>
+            <collision>
+                <origin
+                    xyz="0 0 0"
+                    rpy="0 0 0" />
+                <geometry>
+                    <mesh
+                    filename="package://stochlite_description/meshes/br_shank_link.STL" />
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="br_knee_joint" type="revolute">
+            <origin xyz="0 -0.023481 -0.146" rpy="0 0 0" />
+            <parent link="br_thigh_link" />
+            <child link="br_shank_link" />
+            <axis xyz="0 1 0" />
+            <limit
+                lower="${-1.0 * knee_lim}"
+                upper="${knee_lim}"
+                effort="${torque}"
+                velocity="${velocity}" />
+        </joint>
+
+        <link name="br_toe_link">
+        </link>
+        
+        <joint name="br_toe_joint" type="fixed">
+            <origin xyz="0 -0.023481 -0.169" rpy="0 0 0" />
+            <axis xyz="0 1 0" />
+            <parent link="br_shank_link"/>
+            <child link="br_toe_link"/>
+        </joint>
+
+    </xacro:macro>
+
+</robot>

@@ -1,0 +1,53 @@
+digraph G {
+node [shape=box];
+"base_link" [label="base_link"];
+"A0_Link" [label="A0_Link"];
+"A1_Link" [label="A1_Link"];
+"A2_Link" [label="A2_Link"];
+"A3_Link" [label="A3_Link"];
+"B0_Link" [label="B0_Link"];
+"B1_Link" [label="B1_Link"];
+"B2_Link" [label="B2_Link"];
+"B3_Link" [label="B3_Link"];
+"C0_Link" [label="C0_Link"];
+"C1_Link" [label="C1_Link"];
+"C2_Link" [label="C2_Link"];
+"C3_Link" [label="C3_Link"];
+"D0_Link" [label="D0_Link"];
+"D1_Link" [label="D1_Link"];
+"D2_Link" [label="D2_Link"];
+"D3_Link" [label="D3_Link"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"base_link" -> "A0_joint" [label="xyz: 0.3 -0.083 0.55565 \nrpy: -1.5708 -0 -1.5708"]
+"A0_joint" -> "A0_Link"
+"A0_Link" -> "A1_joint" [label="xyz: 0 0 0 \nrpy: -1.5708 0.07854 -1.5708"]
+"A1_joint" -> "A1_Link"
+"A1_Link" -> "A2_joint" [label="xyz: -0.0065513 -0.083243 0.0315 \nrpy: 0 0 -2.4347"]
+"A2_joint" -> "A2_Link"
+"A2_Link" -> "A3_joint" [label="xyz: 0 -0.32 0.135 \nrpy: 0 -0 1.5708"]
+"A3_joint" -> "A3_Link"
+"base_link" -> "B0_joint" [label="xyz: 0.3 0.083 0.55565 \nrpy: -1.5708 -0 -1.5708"]
+"B0_joint" -> "B0_Link"
+"B0_Link" -> "B1_joint" [label="xyz: 0 0 0 \nrpy: -1.5708 0.07854 1.5708"]
+"B1_joint" -> "B1_Link"
+"B1_Link" -> "B2_joint" [label="xyz: -0.0065513 -0.083243 0.0315 \nrpy: 0 -0 2.2777"]
+"B2_joint" -> "B2_Link"
+"B2_Link" -> "B3_joint" [label="xyz: 0 -0.32 0.135 \nrpy: 0 0 -1.5708"]
+"B3_joint" -> "B3_Link"
+"base_link" -> "C0_joint" [label="xyz: -0.3 -0.083 0.55565 \nrpy: 1.5708 -0 -1.5708"]
+"C0_joint" -> "C0_Link"
+"C0_Link" -> "C1_joint" [label="xyz: 0 0 0 \nrpy: -1.5708 0.07854 -1.5708"]
+"C1_joint" -> "C1_Link"
+"C1_Link" -> "C2_joint" [label="xyz: -0.0065513 -0.083243 0.0315 \nrpy: 0 -0 0.70686"]
+"C2_joint" -> "C2_Link"
+"C2_Link" -> "C3_joint" [label="xyz: 0 -0.32 0.135 \nrpy: 0 -0 1.5708"]
+"C3_joint" -> "C3_Link"
+"base_link" -> "D0_joint" [label="xyz: -0.3 0.083 0.55565 \nrpy: 1.5708 -0 -1.5708"]
+"D0_joint" -> "D0_Link"
+"D0_Link" -> "D1_joint" [label="xyz: 0 0 0 \nrpy: -1.5708 0.07854 1.5708"]
+"D1_joint" -> "D1_Link"
+"D1_Link" -> "D2_joint" [label="xyz: -0.0065513 -0.083243 0.0315 \nrpy: 0 0 -0.86394"]
+"D2_joint" -> "D2_Link"
+"D2_Link" -> "D3_joint" [label="xyz: 0 -0.32 0.135 \nrpy: 0 0 -1.5708"]
+"D3_joint" -> "D3_Link"
+}

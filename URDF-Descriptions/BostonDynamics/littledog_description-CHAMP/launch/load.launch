@@ -1,0 +1,6 @@
+<launch>
+  <arg name="description_name"           default="littledog_description"/>
+  <arg name="description_file"           default="$(find littledog_description)/urdf/littledog.urdf"/>
+
+  <param name="$(arg description_name)" textfile="$(arg description_file)"/>
+</launch>

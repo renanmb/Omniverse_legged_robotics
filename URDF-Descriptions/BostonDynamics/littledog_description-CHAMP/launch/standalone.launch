@@ -1,0 +1,28 @@
+<launch>
+  <arg name="description_name"         default="littledog_description"/>
+  <arg name="description_file"         default="$(find littledog_description)/urdf/littledog.urdf"/>
+  <arg name="joint_states_topic"       default="/joint_states"/>
+
+  <include file="$(find littledog_description)/launch/load.launch">
+    <arg name="description_name" value="$(arg description_name)"/>
+    <arg name="description_file" value="$(arg description_file)"/>
+  </include>
+
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" output="screen">
+    <param name="use_gui"           value="true"/>
+    <param name="rate"              value="100"/>
+    <remap from="robot_description" to="$(arg description_name)"/>
+    <remap from="joint_states"      to="$(arg joint_states_topic)"/>
+  </node>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen">
+    <param name="publish_frequency" value="100"/>
+    <param name="use_tf_static"     value="true"/>
+    <remap from="robot_description" to="$(arg description_name)"/>
+    <remap from="joint_states"      to="$(arg joint_states_topic)"/>
+  </node>
+
+  <node name="rviz" pkg="rviz" type="rviz"
+        args="-d $(find littledog_description)/rviz/littledog.rviz"
+        output="screen"/>
+</launch>
