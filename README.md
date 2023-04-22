@@ -44,6 +44,7 @@ The URDFs found in this repository have been forked/modified/linked from the fol
 ## Bipedal
 - [Agility Robotics' Cassie - UMich-BipedLab](https://github.com/UMich-BipedLab/cassie_description)
 - [Agility Robotics' Digit - DigitRobot.jl](https://github.com/adubredu/DigitRobot.jl)
+- [NJIT - TOCABI](https://github.com/cadop/tocabi)
 ## Manipulation
 - [GoogleAI ROBEL D'Kitty](https://github.com/google-research/robel-scenes)
 - [GoogleAI ROBEL D'Kitty - Modified for CHAMP](https://github.com/chvmp/dkitty_description)
