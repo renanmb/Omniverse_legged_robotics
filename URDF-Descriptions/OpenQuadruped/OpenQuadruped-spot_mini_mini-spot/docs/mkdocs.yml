@@ -1,6 +1,0 @@
-site_name: Spot Mini Mini
-nav:
-    - Home: index.rst
-    - Simulation: simulation.rst
-    - Reinforcement Learning: rl.rst
-theme: readthedocs

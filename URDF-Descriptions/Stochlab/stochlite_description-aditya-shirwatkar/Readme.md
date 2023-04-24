@@ -1,1 +1,0 @@
-# Stochlite Description files

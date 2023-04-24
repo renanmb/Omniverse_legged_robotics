@@ -1,3 +1,0 @@
-[submodule "spot_wrapper"]
-	path = spot_wrapper
-	url = git@github.com:bdaiinstitute/spot_wrapper
