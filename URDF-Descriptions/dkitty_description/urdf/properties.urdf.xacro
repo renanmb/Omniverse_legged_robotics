@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:property name="hip_mesh_path" value="package://dkitty_description/meshes/x430_dkitty_2.stl" />
+    <xacro:property name="upper_leg_mesh_path" value="package://dkitty_description/meshes/x430_dkitty_2.stl" />
+    <xacro:property name="lower_leg_mesh_path" value="package://dkitty_description/meshes/x430_dkitty_2.stl" />
+    <xacro:property name="base_mesh_path" value="package://dkitty_description/meshes/bulkhead.stl" />
+    <xacro:property name="leg_adapter_mesh" value="package://dkitty_description/meshes/fr12_h103_3.stl" />
+    <xacro:property name="foot_mesh" value="package://dkitty_description/meshes/xh_finger_tip.stl" />
+    <xacro:property name="servo_mount_mesh" value="package://dkitty_description/meshes/xh_clamping_small.stl" />
+</robot>

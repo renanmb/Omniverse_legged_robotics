@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -e
+rosrun xacro xacro opendog.urdf.xacro > opendog.urdf
+

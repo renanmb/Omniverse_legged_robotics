@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:macro name="imu" params="id x y z roll pitch yaw update_rate gnoise">
+
+        <link name="imu_link_${id}">
+            <inertial>
+                <mass value="0.001"/>
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <inertia ixx="1e-09" ixy="0.0" ixz="0.0" iyy="1e-09" iyz="0.0" izz="1e-09"/>
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <box size="0.005 0.005 0.005" />
+                </geometry>
+                <material name="">
+                    <color rgba="0.6 0.8 0.1 1" />
+                </material>
+            </visual>
+        </link>
+        
+        <joint name="imu_joint_${id}" type="fixed">
+            <parent link="base_link"/>
+            <child link="imu_link_${id}"/>
+            <origin xyz="${x} ${y} ${z}" rpy="${roll} ${pitch} ${yaw}"/>
+        </joint>
+
+        <gazebo>
+            <plugin filename="libhector_gazebo_ros_imu.so" name="imu_${id}_controller">
+                <updateRate>${update_rate}</updateRate>
+                <bodyName>imu_link_${id}</bodyName>
+                <topicName>sensors/imu_${id}</topicName>
+                <accelDrift>0.005 0.005 0.005</accelDrift>
+                <accelGaussianNoise>${gnoise} ${gnoise} ${gnoise}</accelGaussianNoise>
+                <rateDrift>0.005 0.005 0.005 </rateDrift>
+                <rateGaussianNoise>${gnoise} ${gnoise} ${gnoise}</rateGaussianNoise>
+                <headingDrift>0.005</headingDrift>
+                <headingGaussianNoise>${gnoise}</headingGaussianNoise>
+            </plugin>
+
+            <material>Gazebo/Yellow</material>
+        </gazebo>
+
+    </xacro:macro>
+
+    <xacro:macro name='tof' params="id x y z roll pitch yaw update_rate gnoise">
+
+        <!-- VL53L0X ToF sensor-->
+        <link name="tof_link_${id}"> 
+            <inertial>
+                <mass value="0.001"/>
+                <origin xyz="0 0 0"/>
+                <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <box size="0.005 0.015 0.005" />
+                </geometry>
+                <material name="Red">
+                    <color rgba="1 0.2 0.2 1" />
+                </material>
+            </visual>
+        </link>
+
+        <joint name="tof_joint_${id}" type="fixed">
+            <origin xyz="${x} ${y} ${z}" rpy="${roll} ${pitch} ${yaw}"/>
+            <!-- <origin xyz="0 0 -0.029" rpy="0 1.57 0"/> -->
+            <parent link="base_link"/>
+            <child link="tof_link_${id}"/>
+        </joint>
+
+        <gazebo reference="tof_link_${id}">
+            <sensor type="ray" name="tof_sensor_${id}">
+                <visualize>true</visualize>
+                <update_rate>${update_rate}</update_rate>
+                <always_on>1</always_on>
+                <ray>
+                    <scan>
+                        <horizontal>
+                            <samples>10</samples>
+                            <resolution>1</resolution>
+                            <min_angle>-0.02618</min_angle>
+                            <max_angle>0.02618</max_angle>
+                        </horizontal>
+                        <vertical>
+                            <samples>10</samples>
+                            <resolution>1</resolution>
+                            <min_angle>-0.02618</min_angle>
+                            <max_angle>0.02618</max_angle>
+                        </vertical>
+                    </scan>
+                    <range>
+                        <min>0.002</min>
+                        <max>2</max>
+                        <resolution>0.005</resolution>
+                    </range>
+                </ray>
+                <plugin name="tof_plugin_${id}" filename="libgazebo_ros_range.so">
+                    <topicName>sensors/range_tof_${id}</topicName>
+                    <frameName>frame_range_tof_${id}</frameName>
+                    <gaussianNoise>${gnoise}</gaussianNoise>
+                    <updateRate>${update_rate}</updateRate>
+                    <radiation>light</radiation>
+                    <fov>0.43</fov>
+                </plugin>
+            </sensor>
+
+            <material>Gazebo/Red</material>
+
+        </gazebo>
+
+    </xacro:macro>
+
+    <!-- Contact Sensor Plugins -->
+    <xacro:macro name="contact_sensor" params="leg_name">
+        <gazebo reference="${leg_name}_shank_link">
+            <sensor name="${leg_name}_link_contact_sensor" type="contact">
+                <contact>
+                    <collision>${leg_name}_shank_link_collision</collision>
+                </contact>
+                <plugin name="gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
+                    <bumperTopicName>${leg_name}_contact</bumperTopicName>
+                    <frameName>${leg_name}_shank_link</frameName>
+                </plugin>
+            </sensor>
+        </gazebo>
+    </xacro:macro>
+
+</robot>

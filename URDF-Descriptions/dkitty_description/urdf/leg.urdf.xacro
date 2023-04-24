@@ -1,0 +1,302 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:macro name="dkitty_leg" params="leg  " >
+        <xacro:property name="base_to_hip_x" value="0.1212" />
+        <xacro:property name="base_to_hip_y" value="0.0903" />
+        <xacro:property name="leg_trans"                value="0 0 0.0102" />
+        <xacro:property name="leg_rotation"             value="0 0 0" />
+        <xacro:property name="hip_adapter_trans"        value="0 0 -0.0005" />
+        <xacro:property name="hip_adapter_rotation"     value="3.1416 0 0" />
+        <xacro:property name="leg_adapter_trans"        value="0 0 -0.0005" />
+        <xacro:property name="leg_adapter_rotation"     value="3.1416 0 1.5708" />
+        <xacro:property name="foot_trans"               value="0 0 0.0538" />
+        <xacro:property name="foot_rotation"            value="3.1416 0 1.5708" />
+        <xacro:property name="servo_mount_trans"        value="0 0 0" />
+        <xacro:property name="servo_mount_rotation"     value="3.1416 0 1.5708" />
+
+        <xacro:if value="${leg == 'lf'}">
+            <xacro:property name="hip_trans"      value="0 -0.0102 0" />
+            <xacro:property name="hip_rotation"      value="1.5708 0 0" />
+            <xacro:property name="leg_trans"      value="0 0 0.0102" />
+            <xacro:property name="leg_rotation"      value="0 0 1.5708" />
+            <xacro:property name="servo_mount_rotation"    value="3.1416 0 1.5708" />
+            <xacro:property name="base_to_hip_xyz" value="${base_to_hip_x} ${base_to_hip_y} 0" />
+            <xacro:property name="hip_to_upper_leg" value="${hip_to_upper_leg_distance}" />
+        </xacro:if>
+
+        <xacro:if value="${leg == 'lh'}">
+            <xacro:property name="hip_trans"      value="0 -0.0102 0" />
+            <xacro:property name="hip_rotation"      value="1.5708 3.1416 0" />
+            <xacro:property name="leg_trans"      value="0 0 0.0102" />
+            <xacro:property name="leg_rotation"      value="0 0 1.5708" />
+            <xacro:property name="servo_mount_rotation"    value="3.1416 0 1.5708" />
+            <xacro:property name="base_to_hip_xyz" value="-${base_to_hip_x} ${base_to_hip_y} 0" />
+            <xacro:property name="hip_to_upper_leg" value="${hip_to_upper_leg_distance}" />
+        </xacro:if>
+
+        <xacro:if value="${leg == 'rf'}">
+            <xacro:property name="hip_trans"      value="0 0.0102 0" />
+            <xacro:property name="hip_rotation"      value="-1.5708 0 0" />
+            <xacro:property name="leg_trans"      value="0 0 0.0102" />
+            <xacro:property name="leg_rotation"      value="0 0 -1.5708" />
+            <xacro:property name="servo_mount_rotation"    value="3.1416 0 -1.5708" />
+            <xacro:property name="base_to_hip_xyz" value="${base_to_hip_x} -${base_to_hip_y} 0" />
+            <xacro:property name="hip_to_upper_leg" value="-${hip_to_upper_leg_distance}" />
+        </xacro:if>
+
+        <xacro:if value="${leg == 'rh'}">
+            <xacro:property name="hip_trans"      value="0 0.0102 0" />
+            <xacro:property name="hip_rotation"      value="-1.5708 3.1416 0" />
+            <xacro:property name="leg_trans"      value="0 0 0.0102" />
+            <xacro:property name="leg_rotation"      value="0 0 -1.5708" />
+            <xacro:property name="servo_mount_rotation"    value="3.1416 0 -1.5708" />
+            <xacro:property name="base_to_hip_xyz" value="-${base_to_hip_x} -${base_to_hip_y} 0" />
+            <xacro:property name="hip_to_upper_leg" value="-${hip_to_upper_leg_distance}" />
+        </xacro:if>
+
+        <link name="${leg}_hip_debug_link"/>
+
+        <link name="${leg}_hip_servo_link">
+            <collision>
+                <origin xyz="${hip_trans}" rpy="${hip_rotation}" />
+                <geometry>
+                    <mesh filename="${hip_mesh_path}"/>
+                </geometry>
+            </collision>
+            <visual>
+                <origin xyz="${hip_trans}" rpy="${hip_rotation}" />
+                <geometry>
+                    <mesh filename="${hip_mesh_path}"/>
+                </geometry>
+                <material name="black" />
+            </visual>
+        </link>
+
+        <link name="${leg}_hip_adapter_link">
+            <collision>
+                <origin xyz="${hip_adapter_trans}" rpy="${hip_adapter_rotation}" />
+                <geometry>
+                    <mesh filename="${leg_adapter_mesh}"/>
+                </geometry>
+            </collision>
+            <visual>
+                <origin xyz="${hip_adapter_trans}" rpy="${hip_adapter_rotation}" />
+                <geometry>
+                    <mesh filename="${leg_adapter_mesh}"/>
+                </geometry>
+                <material name="silver" />
+            </visual>
+        </link>
+
+        <link name="${leg}_upper_leg_servo_mount_link">
+            <collision>
+                <origin xyz="${servo_mount_trans}" rpy="${servo_mount_rotation}" />
+                <geometry>
+                    <mesh filename="${leg_adapter_mesh}"/>
+                </geometry>
+            </collision>
+            <visual>
+                <origin xyz="${servo_mount_trans}" rpy="${servo_mount_rotation}" />
+                <geometry>
+                    <mesh filename="${servo_mount_mesh}"/>
+                </geometry>
+                <material name="black" />
+            </visual>
+        </link>
+
+        <link name="${leg}_upper_leg_servo_link">
+            <collision>
+                <origin xyz="${leg_trans}" rpy="${leg_rotation}" />
+                <geometry>
+                    <mesh filename="${upper_leg_mesh_path}"/>
+                </geometry>
+            </collision>
+            <visual>
+                <origin xyz="${leg_trans}" rpy="${leg_rotation}" />
+                <geometry>
+                    <mesh filename="${upper_leg_mesh_path}"/>
+                </geometry>
+                <material name="black" />
+            </visual>
+        </link>
+
+        <link name="${leg}_upper_leg_adapter_link">
+            <collision>
+                <origin xyz="${leg_adapter_trans}" rpy="${leg_adapter_rotation}" />
+                <geometry>
+                    <mesh filename="${leg_adapter_mesh}"/>
+                </geometry>
+            </collision>
+            <visual>
+                <origin xyz="${leg_adapter_trans}" rpy="${leg_adapter_rotation}" />
+                <geometry>
+                    <mesh filename="${leg_adapter_mesh}"/>
+                </geometry>
+                <material name="silver" />
+            </visual>
+        </link>
+
+       <link name="${leg}_lower_leg_servo_mount_link">
+            <collision>
+                <origin xyz="${servo_mount_trans}" rpy="${servo_mount_rotation}" />
+                <geometry>
+                    <mesh filename="${leg_adapter_mesh}"/>
+                </geometry>
+            </collision>
+            <visual>
+                <origin xyz="${servo_mount_trans}" rpy="${servo_mount_rotation}" />
+                <geometry>
+                    <mesh filename="${servo_mount_mesh}"/>
+                </geometry>
+                <material name="black" />
+            </visual>
+        </link>
+
+        <link name="${leg}_lower_leg_servo_link">
+            <collision>
+                <origin xyz="${leg_trans}" rpy="${leg_rotation}" />
+                <geometry>
+                    <mesh filename="${lower_leg_mesh_path}"/>
+                </geometry>
+            </collision>
+            <visual>
+                <origin xyz="${leg_trans}" rpy="${leg_rotation}" />
+                <geometry>
+                    <mesh filename="${lower_leg_mesh_path}"/>
+                </geometry>
+                <material name="black" />
+            </visual>
+        </link>
+
+        <link name="${leg}_lower_leg_adapter_link">
+            <collision>
+                <origin xyz="${leg_adapter_trans}" rpy="${leg_adapter_rotation}" />
+                <geometry>
+                    <mesh filename="${leg_adapter_mesh}"/>
+                </geometry>
+            </collision>
+            <visual>
+                <origin xyz="${leg_adapter_trans}" rpy="${leg_adapter_rotation}" />
+                <geometry>
+                    <mesh filename="${leg_adapter_mesh}"/>
+                </geometry>
+                <material name="silver" />
+            </visual>
+        </link>
+
+        <link name="${leg}_foot_link">
+            <collision>
+                <origin xyz="${foot_trans}" rpy="${foot_rotation}" />
+                <geometry>
+                    <mesh filename="${foot_mesh}"/>
+                </geometry>
+            </collision>
+            <visual>
+                <origin xyz="${foot_trans}" rpy="${foot_rotation}" />
+                <geometry>
+                    <mesh filename="${foot_mesh}"/>
+                </geometry>
+                <material name="black" />
+            </visual>
+        </link>
+
+        <joint name="${leg}_debug_joint" type="fixed">
+            <parent link="base_link" />
+            <child link="${leg}_hip_debug_link" />
+            <origin xyz="${base_to_hip_xyz}" rpy="0 0 0" />
+        </joint>
+
+        <joint name="${leg}_hip_joint" type="fixed">
+            <parent link="base_link" />
+            <child link="${leg}_hip_servo_link" />
+            <origin xyz="${base_to_hip_xyz}" rpy="0 0 0" />
+        </joint>
+
+        <joint name="${leg}_hip_adapter_joint" type="revolute">
+            <axis xyz="1 0 0" />
+            <limit effort="25" lower="-${pi}" upper="${pi}" velocity="1.5" />
+            <parent link="${leg}_hip_servo_link" />
+            <child link="${leg}_hip_adapter_link" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </joint>
+
+        <joint name="${leg}_upper_leg_servo_mount_joint" type="fixed">
+            <parent link="${leg}_hip_adapter_link" />
+            <child link="${leg}_upper_leg_servo_mount_link" />
+            <origin xyz="0 0 -0.055" rpy="0 0 0" />
+        </joint>
+
+        <joint name="${leg}_upper_leg_joint" type="fixed">
+            <parent link="${leg}_upper_leg_servo_mount_link" />
+            <child link="${leg}_upper_leg_servo_link" />
+            <origin xyz="0 0 -0.0405" rpy="0 0 0" />
+        </joint>
+
+        <joint name="${leg}_upper_leg_adapter_joint" type="revolute">
+            <axis xyz="0 1 0" />
+            <limit effort="25" lower="-${pi}" upper="${pi}" velocity="1.5" />
+            <parent link="${leg}_upper_leg_servo_link" />
+            <child link="${leg}_upper_leg_adapter_link" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </joint>
+
+        <joint name="${leg}_lower_leg_servo_mount_joint" type="fixed">
+            <parent link="${leg}_upper_leg_adapter_link" />
+            <child link="${leg}_lower_leg_servo_mount_link" />
+            <origin xyz="0 0 -0.055" rpy="0 0 0" />
+        </joint>
+
+        <joint name="${leg}_lower_leg_joint" type="fixed">
+            <parent link="${leg}_lower_leg_servo_mount_link" />
+            <child link="${leg}_lower_leg_servo_link" />
+            <origin xyz="0 0 -0.0405" rpy="0 0 0" />
+        </joint>
+
+        <joint name="${leg}_lower_leg_adapter_joint" type="revolute">
+            <axis xyz="0 1 0" />
+            <limit effort="25" lower="-${pi}" upper="${pi}" velocity="1.5" />
+            <parent link="${leg}_lower_leg_servo_link" />
+            <child link="${leg}_lower_leg_adapter_link" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </joint>
+
+        <joint name="${leg}_foot_joint" type="fixed">
+            <parent link="${leg}_lower_leg_adapter_link" />
+            <child link="${leg}_foot_link" />
+            <origin xyz="0 0 -0.10885" rpy="0 0 0" />
+        </joint>
+
+        <transmission name="${leg}_hip_joint_trans">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${leg}_hip_joint">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${leg}_hip_joint_motor">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+        <transmission name="${leg}_upper_leg_joint_trans">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${leg}_upper_leg_joint">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${leg}_upper_leg_joint_motor">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+        <transmission name="${leg}_lower_leg_joint_trans">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${leg}_lower_leg_joint">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${leg}_lower_joint_motor">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+    </xacro:macro>
+</robot>

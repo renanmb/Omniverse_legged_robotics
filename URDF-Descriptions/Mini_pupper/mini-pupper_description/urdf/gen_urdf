@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+set -e
+rosrun xacro xacro mini-pupper.urdf.xacro > mini-pupper.urdf

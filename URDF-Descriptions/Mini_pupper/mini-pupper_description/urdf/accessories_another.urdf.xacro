@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:macro name="accessories" params="base_name base_length base_height  " >
+
+        <xacro:include filename="$(find mini-pupper_description)/urdf/ld06.urdf.xacro" />
+        <xacro:include filename="$(find realsense2_description)/urdf/_d435i.urdf.xacro" />
+
+        <xacro:ld06
+            parent="${base_name}" >
+            <origin xyz="-0.05 0.0 ${base_height / 2 + 0.060}" rpy="0 0 0"/>
+        </xacro:ld06>
+
+        <xacro:sensor_d435i
+            parent="${base_name}"
+            name="camera">
+            <origin xyz="${base_length / 2 + 0.01} 0.0 ${base_height - 0.025}" rpy="0 0 0"/>
+        </xacro:sensor_d435i>
+
+        <gazebo>
+            <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
+                <updateRate>50.0</updateRate>
+                <bodyName>imu_link</bodyName>
+                <topicName>imu/data</topicName>
+                <accelDrift>0.005 0.005 0.005</accelDrift>
+                <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
+                <rateDrift>0.005 0.005 0.005 </rateDrift>
+                <rateGaussianNoise>0.005 0.005 0.005 </rateGaussianNoise>
+                <headingDrift>0.005</headingDrift>
+                <headingGaussianNoise>0.005</headingGaussianNoise>
+            </plugin>
+        </gazebo>
+
+        <link name="imu_link">
+            <inertial>
+                <mass value="0.001"/>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <inertia ixx="1e-09" ixy="0.0" ixz="0.0" iyy="1e-09" iyz="0.0" izz="1e-09"/>
+            </inertial>
+        </link>
+        <joint name="imu_joint" type="fixed">
+            <parent link="${base_name}" />
+            <child link="imu_link" />
+        </joint>
+
+        <!-- <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/>
+        <xacro:VLP-16 parent="${base_name}" name="velodyne" topic="velodyne_points" hz="10" samples="1024" gpu="false" lasers="16" max_range="100">
+            <origin xyz="0 0 ${base_height / 2}" rpy="0 0 0" />
+        </xacro:VLP-16>
+
+        <xacro:include filename="$(find mini-pupper_arm_description)/urdf/mini-pupper_arm.urdf.xacro" />
+        <xacro:mini-pupper_arm parent="${base_name}">
+            <origin xyz="0.07 0.0 ${base_height / 2}" rpy="0 0 0"/>
+        </xacro:mini-pupper_arm> -->
+    </xacro:macro>
+</robot>

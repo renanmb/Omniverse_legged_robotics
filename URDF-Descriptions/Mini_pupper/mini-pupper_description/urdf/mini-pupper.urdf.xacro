@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<robot name="mini-pupper" xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:include filename="$(find mini-pupper_description)/urdf/properties.urdf.xacro" />
+
+    <material name="black"><color rgba="0.15 0.15 0.15 1.0" /></material>
+    <material name="dyellow"><color rgba="0.95 0.93 0.13 1.0" /></material>
+    <material name="white"><color rgba="0.97 0.97 0.97 1.0" /></material>
+
+    <link name="base_link">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="${base_mesh_path}" scale="0.001 0.001 0.001" />
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://mini-pupper_description/meshes/base.stl" scale="1 1 1" />
+            </geometry>
+            <material name="dyellow" />
+        </visual>
+    </link>
+    <link name="base_inertia">
+        <inertial>
+            <origin xyz="0 0 0" />
+            <mass value="${base_mass}" />
+            <inertia ixx="${(1/12) * base_mass * (base_y_length * base_y_length + base_z_length * base_z_length)}" ixy="0.0" ixz="0.0"
+                     iyy="${(1/12) * base_mass * (base_x_length * base_x_length + base_z_length * base_z_length)}" iyz="0.0"
+                     izz="${(1/12) * base_mass * (base_x_length * base_x_length + base_y_length * base_y_length)}" />
+        </inertial>
+    </link>
+    <joint name="base_link_to_base_inertia" type="fixed">
+        <parent link="base_link"/>
+        <child link="base_inertia"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+    </joint>
+<!-- 
+    <link name="face">
+        <inertial>
+            <origin xyz="0 0 0" />
+            <mass value="0.0" />
+            <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+        </inertial>
+        <visual>
+            <geometry>
+                <box size="0.005 0.0406 0.031086"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="black" />
+        </visual>
+    </link>
+    <joint name="base_link_to_face" type="fixed">
+        <parent link="base_link"/>
+        <child link="face"/>
+        <origin xyz="${base_x_length/2 - 0.0015} 0 0.0225" rpy="0 0 0"/>
+    </joint>
+
+    <link name="eye_l">
+        <inertial>
+            <origin xyz="0 0 0" />
+            <mass value="0.0" />
+            <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+        </inertial>
+        <visual>
+            <geometry>
+                <box size="0.005 0.0083 0.014"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="white" />
+        </visual>
+    </link>
+    <joint name="face_to_eye_l" type="fixed">
+        <parent link="face"/>
+        <child link="eye_l"/>
+        <origin xyz="0.00005 -0.006 0" rpy="0 0 0"/>
+    </joint>
+
+    <link name="eye_r">
+        <inertial>
+            <origin xyz="0 0 0" />
+            <mass value="0.0" />
+            <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+        </inertial>
+        <visual>
+            <geometry>
+                <box size="0.005 0.0083 0.014"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="white" />
+        </visual>
+    </link>
+    <joint name="face_to_eye_r" type="fixed">
+        <parent link="face"/>
+        <child link="eye_r"/>
+        <origin xyz="0.00005 0.006 0" rpy="0 0 0"/>
+    </joint> -->
+
+    <gazebo reference="base_link">
+        <material>Gazebo/ZincYellow</material>
+    </gazebo>
+
+    <!-- <gazebo reference="face">
+        <material>Gazebo/FlatBlack</material>
+    </gazebo>
+
+    <gazebo reference="eye_l">
+        <material>Gazebo/White</material>
+    </gazebo>
+
+    <gazebo reference="eye_r">
+        <material>Gazebo/White</material>
+    </gazebo> -->
+
+    <xacro:include filename="$(find mini-pupper_description)/urdf/leg.urdf.xacro" />
+
+    <xacro:include filename="$(find mini-pupper_description)/urdf/accessories.urdf.xacro" />
+
+    <xacro:accessories
+        base_name="base_link"
+        base_length="${base_x_length}"
+        base_height="${base_z_length}"
+    />
+
+    <xacro:mini-pupper_leg leg="lf"/>
+    <xacro:mini-pupper_leg leg="lh"/>
+    <xacro:mini-pupper_leg leg="rf"/>
+    <xacro:mini-pupper_leg leg="rh"/>
+
+    <gazebo>
+        <plugin name="p3d_base_controller" filename="libgazebo_ros_p3d.so">
+            <alwaysOn>true</alwaysOn>
+            <updateRate>10.0</updateRate>
+            <bodyName>base_link</bodyName>
+            <topicName>odom/ground_truth</topicName>
+            <gaussianNoise>0.01</gaussianNoise>
+            <frameName>world</frameName>
+            <xyzOffsets>0 0 0</xyzOffsets>
+            <rpyOffsets>0 0 0</rpyOffsets>
+        </plugin>
+    </gazebo>
+
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <legacyModeNS>true</legacyModeNS>
+        </plugin>
+    </gazebo>
+</robot>

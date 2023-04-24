@@ -1,0 +1,56 @@
+digraph G {
+node [shape=box];
+"base_link" [label="base_link"];
+"LF_HIP" [label="LF_HIP"];
+"LF_THIGH" [label="LF_THIGH"];
+"LF_THIGH_FOOT" [label="LF_THIGH_FOOT"];
+"LF_TOE" [label="LF_TOE"];
+"LH_HIP" [label="LH_HIP"];
+"LH_THIGH" [label="LH_THIGH"];
+"LH_THIGH_FOOT" [label="LH_THIGH_FOOT"];
+"LH_TOE" [label="LH_TOE"];
+"RF_HIP" [label="RF_HIP"];
+"RF_THIGH" [label="RF_THIGH"];
+"RF_THIGH_FOOT" [label="RF_THIGH_FOOT"];
+"RF_TOE" [label="RF_TOE"];
+"RH_HIP" [label="RH_HIP"];
+"RH_THIGH" [label="RH_THIGH"];
+"RH_THIGH_FOOT" [label="RH_THIGH_FOOT"];
+"RH_TOE" [label="RH_TOE"];
+"imu_link" [label="imu_link"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"base_link" -> "LF_HIP_JOINT" [label="xyz: 0.0705 0.04 0.02425 \nrpy: 0 -0 0"]
+"LF_HIP_JOINT" -> "LF_HIP"
+"LF_HIP" -> "LF_THIGH_JOINT" [label="xyz: 0.02735 0.029523 0.0012724 \nrpy: 0 0 -1.5708"]
+"LF_THIGH_JOINT" -> "LF_THIGH"
+"LF_THIGH" -> "LF_THIGH_FOOT_JOINT" [label="xyz: -0.00516 -0.10458 -0.065536 \nrpy: -0.043072 -0 1.5708"]
+"LF_THIGH_FOOT_JOINT" -> "LF_THIGH_FOOT"
+"LF_THIGH_FOOT" -> "LF_TOE_JOINT" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"LF_TOE_JOINT" -> "LF_TOE"
+"base_link" -> "LH_HIP_JOINT" [label="xyz: -0.1299 0.04 0.02425 \nrpy: 0 -0 0"]
+"LH_HIP_JOINT" -> "LH_HIP"
+"LH_HIP" -> "LH_THIGH_JOINT" [label="xyz: 0.02775 0.029523 0.0012724 \nrpy: 0 0 -1.5708"]
+"LH_THIGH_JOINT" -> "LH_THIGH"
+"LH_THIGH" -> "LH_THIGH_FOOT_JOINT" [label="xyz: -0.0054498 -0.10458 -0.065524 \nrpy: -0.043072 -0 1.5708"]
+"LH_THIGH_FOOT_JOINT" -> "LH_THIGH_FOOT"
+"LH_THIGH_FOOT" -> "LH_TOE_JOINT" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"LH_TOE_JOINT" -> "LH_TOE"
+"base_link" -> "RF_HIP_JOINT" [label="xyz: 0.0705 -0.04 0.02425 \nrpy: 0 -0 0"]
+"RF_HIP_JOINT" -> "RF_HIP"
+"RF_HIP" -> "RF_THIGH_JOINT" [label="xyz: 0.02735 -0.029523 0.0012724 \nrpy: 0 0 -1.5708"]
+"RF_THIGH_JOINT" -> "RF_THIGH"
+"RF_THIGH" -> "RF_THIGH_FOOT_JOINT" [label="xyz: 0.00516 -0.10458 -0.065536 \nrpy: -0.043072 -0 1.5708"]
+"RF_THIGH_FOOT_JOINT" -> "RF_THIGH_FOOT"
+"RF_THIGH_FOOT" -> "RF_TOE_JOINT" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"RF_TOE_JOINT" -> "RF_TOE"
+"base_link" -> "RH_HIP_JOINT" [label="xyz: 0.0705 -0.04 0.02425 \nrpy: 0 -0 0"]
+"RH_HIP_JOINT" -> "RH_HIP"
+"RH_HIP" -> "RH_THIGH_JOINT" [label="xyz: -0.17265 -0.029523 0.0012724 \nrpy: 0 0 -1.5708"]
+"RH_THIGH_JOINT" -> "RH_THIGH"
+"RH_THIGH" -> "RH_THIGH_FOOT_JOINT" [label="xyz: 0.0054098 -0.10458 -0.065525 \nrpy: -0.043072 -0 1.5708"]
+"RH_THIGH_FOOT_JOINT" -> "RH_THIGH_FOOT"
+"RH_THIGH_FOOT" -> "RH_TOE_JOINT" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"RH_TOE_JOINT" -> "RH_TOE"
+"base_link" -> "imu_joint" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"imu_joint" -> "imu_link"
+}
